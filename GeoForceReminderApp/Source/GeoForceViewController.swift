@@ -14,7 +14,7 @@ class GeoForceViewController: UIViewController {
 
     // MARK: - Properties
     var viewModel: GeoForceViewModel?
-    private var locationManager: CLLocationManager? // Added property
+    private var locationManager: CLLocationManager = CLLocationManager()
 
     // MARK: - Outlets
     @IBOutlet weak var mapView: MKMapView!
@@ -26,16 +26,13 @@ class GeoForceViewController: UIViewController {
         fetchAndDisplayLocations()
         addZoomControls()
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-
+    
     // MARK: - Map Setup
     private func setupMapView() {
-        locationManager?.delegate = self
+        locationManager.delegate = self
         mapView.delegate = self
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
     }
 
     private func fetchAndDisplayLocations() {
@@ -106,6 +103,23 @@ class GeoForceViewController: UIViewController {
         let span = MKCoordinateSpan(latitudeDelta: region.span.latitudeDelta * 2, longitudeDelta: region.span.longitudeDelta * 2)
         let newRegion = MKCoordinateRegion(center: region.center, span: span)
         mapView.setRegion(newRegion, animated: true)
+    }
+
+    private func checkLocationAuthorization() {
+
+        switch locationManager.authorizationStatus {
+        case .notDetermined:
+            locationManager.requestAlwaysAuthorization()
+        case .restricted, .denied:
+            print("Location access is restricted or denied. Please enable it in settings.")
+        case .authorizedWhenInUse:
+            print("Location access is authorized when in use. Consider requesting 'Always' authorization for geofencing.")
+            locationManager.requestAlwaysAuthorization()
+        case .authorizedAlways:
+            print("Location access is authorized always.")
+        @unknown default:
+            print("Unknown location authorization status.")
+        }
     }
 }
 
@@ -187,15 +201,24 @@ extension GeoForceViewController: CLLocationManagerDelegate {
         region.notifyOnEntry = true
         region.notifyOnExit = true
 
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.requestAlwaysAuthorization()
-        locationManager?.startMonitoring(for: region)
+        locationManager.startMonitoring(for: region)
+        print("Started monitoring region: \(region.identifier) at \(center) with radius \(radius) meters.")
+
+        let monitoredRegions = locationManager.monitoredRegions.map { $0.identifier }
+        print("Currently monitored regions: \(monitoredRegions)")
+    }
+
+    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+        print("Failed to monitor region: \(region?.identifier ?? "Unknown") with error: \(error.localizedDescription)")
+    }
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let newLocation = locations.last else { return }
+        print("Location updated: \(newLocation.coordinate.latitude), \(newLocation.coordinate.longitude)")
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Failed to update location: \(error.localizedDescription)")
     }
 }
 
-extension GeoForceViewController {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print(locations)
-    }
-}
