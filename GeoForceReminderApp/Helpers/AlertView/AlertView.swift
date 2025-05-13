@@ -26,7 +26,7 @@ class AlertView: UIView {
         
     }
     
-    static func show(title: String, desc: String? = nil, descColor: UIColor = .ColorA5A5A5, btnYesTitle: String, btnNoTitle: String, showArrowImg: Bool = false, showSecondBtn: Bool = true, onClose: @escaping (Bool)->Void){
+    static func show(title: String, desc: String? = nil, descColor: UIColor = .black, btnYesTitle: String, btnNoTitle: String, showArrowImg: Bool = false, showSecondBtn: Bool = true, onClose: @escaping (Bool)->Void){
         
         let av : AlertView = AlertView.fromNib()
         av.lblTitle.text = title
@@ -72,7 +72,7 @@ class AlertView: UIView {
     
     func setTheme(){
         
-        self.backgroundColor = .primaryColor.withAlphaComponent(0.70)
+        self.backgroundColor = .black.withAlphaComponent(0.70)
     }
     
     @IBAction func btnOkeyTapped(_ sender: Any) {

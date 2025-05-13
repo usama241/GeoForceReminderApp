@@ -43,8 +43,8 @@ class AlertPopup: UIView {
         
         let tapGeture = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped))
         overlayView.addGestureRecognizer(tapGeture)
-        titleLabel.textColor = UIColor.Color111941
-        messageLabel.textColor = UIColor.Color111941
+        titleLabel.textColor = UIColor.black
+        messageLabel.textColor = UIColor.black
     }
     
     override func layoutSubviews() {

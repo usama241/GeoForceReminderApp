@@ -39,8 +39,8 @@ class AlertPopupWithTwoButtons: UIView {
         tag = 999
         
         if isMultipleChoice {
-            okayButton.backgroundColor = UIColor.textColor1
-            cancelButton.backgroundColor = UIColor.textColor1
+            okayButton.backgroundColor = UIColor.black
+            cancelButton.backgroundColor = UIColor.black
         }
         
         let tapGeture = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped))

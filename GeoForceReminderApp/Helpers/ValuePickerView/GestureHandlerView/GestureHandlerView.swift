@@ -112,7 +112,7 @@ public class GestureHandlerView: UIView {
         let visualEffectAnimation = UIViewPropertyAnimator.init(duration: duration, curve: .linear) { [weak self ] in
             switch state {
             case .expanded:
-                self!.parent.backgroundColor = UIColor.tint1.withAlphaComponent(0.70)
+                self!.parent.backgroundColor = UIColor.black.withAlphaComponent(0.70)
             case .collpased:
                 self?.backgroundColor = nil
             }

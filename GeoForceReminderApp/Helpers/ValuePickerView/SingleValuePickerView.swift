@@ -100,8 +100,8 @@ class SingleValuePickerView: UIView, UIGestureRecognizerDelegate, UITableViewDel
     }
     
     func setUpTheme(){
-        lblTitle.textColor = UIColor.tint1.withAlphaComponent(0.50)
-        vwBarHandler.backgroundColor = UIColor.tint1.withAlphaComponent(0.50)
+//        lblTitle.textColor = UIColor.tint1.withAlphaComponent(0.50)
+//        vwBarHandler.backgroundColor = UIColor.tint1.withAlphaComponent(0.50)
         handlerArea.backgroundColor = .white
         vwFooterSafeArea.backgroundColor = .white
     }
@@ -335,16 +335,13 @@ extension SingleValuePickerView{
         let visualEffectAnimation = UIViewPropertyAnimator.init(duration: duration, curve: .linear) { [weak self ] in
             switch state {
             case .expanded:
-                self?.backgroundColor = UIColor.tint1.withAlphaComponent(0.70)
+                self?.backgroundColor = UIColor.black.withAlphaComponent(0.70)
             case .collpased:
                 self?.backgroundColor = nil
             }
         }
         visualEffectAnimation.startAnimation()
         animations.append(visualEffectAnimation)
-        
-        
-        
     }
     
     func startIntractiveAnimation(state:CardState,duration:TimeInterval) {

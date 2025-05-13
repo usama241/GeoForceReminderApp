@@ -84,9 +84,9 @@ extension PrimaryButton {
         if let title = _title ?? currentTitle {
             _title = title
             let label = UILabel()
-            label.font = UIFont.buttonFont
+            label.font = UIFont.systemFont(ofSize: 14.0)
             label.text = title
-            label.textColor = isEnabled ? .white : .appPlaceHolderColor
+            label.textColor = isEnabled ? .white : .black
             label.numberOfLines = 1
             label.sizeToFit()
             label.textAlignment = .center
@@ -95,7 +95,7 @@ extension PrimaryButton {
         if let image = _image ?? currentImage ?? imageView?.image {
             _image = image
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-            let tintColor = isEnabled ? UIColor.white : UIColor.appPlaceHolderColor
+            let tintColor = isEnabled ? UIColor.white : UIColor.black
             imageView.tintColor = tintColor
             imageView.image = image
             imageView.contentMode = .scaleAspectFit
@@ -132,23 +132,23 @@ extension PrimaryButton {
 //        clipsToBounds = true
         layer.cornerRadius = 8.0
         layer.borderWidth = 0.6
-        self.shadowColor = .appShadowColor.withAlphaComponent(0.8)
+//        self.shadowColor = .appShadowColor.withAlphaComponent(0.8)
         
         if isEnabled {
-            backgroundColor = UIColor.appPrimaryColor
+            backgroundColor = UIColor.black
             setActiveLayer()
         } else {
-            backgroundColor = UIColor.appDisabledButtonColor
+            backgroundColor = UIColor.black
             setInactiveLayer()
         }
     }
     
     private func setActiveLayer() {
-        layer.borderColor = UIColor.appPrimaryButtonBorderColor.cgColor
+        layer.borderColor = UIColor.black.cgColor
     }
     
     private func setInactiveLayer() {
-        layer.borderColor = UIColor.appButtonBorderColor.cgColor
+        layer.borderColor = UIColor.black.cgColor
     }
     
 }

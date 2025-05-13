@@ -30,8 +30,8 @@ class SingleValuePickerCell: UITableViewCell {
     }
     
     func setUpTheme(){
-        imgView.tintColor = .tint1
-        lblValue.textColor = .tint1
+        imgView.tintColor = .black
+        lblValue.textColor = .white
     }
     
 }

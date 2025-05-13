@@ -64,7 +64,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "190"
             endingLineNumber = "190"
-            landmarkName = "locationManager(_:didExitRegion:)"
+            landmarkName = "drawGeofenceCircle(center:radius:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -107,7 +107,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "241"
-            endingLineNumber = "241">
+            endingLineNumber = "241"
+            landmarkName = "GeoForceViewController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -124,36 +126,6 @@
             endingLineNumber = "172"
             landmarkName = "setGeofence(for:radius:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "4AF8F33F-3522-43B7-ACA0-EE2D557C2CBB - 761a6c4b9de7fad8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GeoForceReminderApp.GeoForceViewController.mapView(_: __C.MKMapView, didSelect: __C.MKAnnotationView) -&gt; ()"
-                  moduleName = "GeoForceReminderApp.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbookpro/Desktop/GeoForceReminderApp/GeoForceReminderApp/Source/GeoForceViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "174"
-                  endingLineNumber = "174">
-               </Location>
-               <Location
-                  uuid = "4AF8F33F-3522-43B7-ACA0-EE2D557C2CBB - 761a6c4b9de7fa3b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GeoForceReminderApp.GeoForceViewController.mapView(_: __C.MKMapView, didSelect: __C.MKAnnotationView) -&gt; ()"
-                  moduleName = "GeoForceReminderApp.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbookpro/Desktop/GeoForceReminderApp/GeoForceReminderApp/Source/GeoForceViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "173"
-                  endingLineNumber = "173">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -182,7 +154,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "195"
             endingLineNumber = "195"
-            landmarkName = "setupGeofenceMonitoring(for:radius:)"
+            landmarkName = "mapView(_:rendererFor:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -198,7 +170,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "200"
             endingLineNumber = "200"
-            landmarkName = "setupGeofenceMonitoring(for:radius:)"
+            landmarkName = "mapView(_:rendererFor:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -294,7 +266,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "186"
             endingLineNumber = "186"
-            landmarkName = "locationManager(_:didEnterRegion:)"
+            landmarkName = "drawGeofenceCircle(center:radius:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

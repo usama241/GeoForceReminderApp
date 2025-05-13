@@ -35,24 +35,8 @@ final class RedirectHelper {
     }
     
     func checkUserSession(transition :CATransition) {
-       if let userData = UserDefaults.standard.getUserSession() {
-            do {
-                let decoder = JSONDecoder()
-                let user = try decoder.decode(LocationsResponse.self, from: userData)
-                UserSession.shared.user = user
-                setRootToHome(transition: transition)
-            }catch let error {
-                print(error)
-                setRootToHome(transition: transition)
-            }
-        }else {
-            setRootToHome(transition: transition)
-        }
+        setRootToHome(transition: transition)
     }
-
- 
-
-   
     
     func setRootToHome(transition :CATransition) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

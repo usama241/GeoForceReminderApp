@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var redirect : RedirectHelper!
     var logoutTimer: Timer?
-    let logoutTimeInterval: TimeInterval = 1200 // 20 minutes
     let vc = BaseViewController()
     
     
@@ -36,8 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
  
     func applicationWillTerminate(_ application: UIApplication) {
-        UserDefaults.standard.removeUserSession()
-        UserSession.shared.user = nil
+        
     }
     
     // MARK: UISceneSession Lifecycle

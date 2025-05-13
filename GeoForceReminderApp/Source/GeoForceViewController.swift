@@ -170,6 +170,7 @@ extension GeoForceViewController: MKMapViewDelegate {
 
     private func setGeofence(for annotation: MKAnnotation, radius: Double) {
         setupGeofenceMonitoring(for: annotation, radius: radius)
+        drawGeofenceCircle(center: annotation.coordinate, radius: radius)
         print("Geofence set for annotation at \(annotation.coordinate) with radius \(radius) meters.")
     }
 
@@ -177,6 +178,27 @@ extension GeoForceViewController: MKMapViewDelegate {
         let errorAlert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(errorAlert, animated: true, completion: nil)
+    }
+
+    private func drawGeofenceCircle(center: CLLocationCoordinate2D, radius: Double) {
+        // Remove existing overlays
+        mapView.removeOverlays(mapView.overlays)
+
+        // Create a new circle overlay
+        let circle = MKCircle(center: center, radius: radius)
+        mapView.addOverlay(circle)
+    }
+
+    // MARK: - MKMapViewDelegate Method for Rendering Overlays
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let circleOverlay = overlay as? MKCircle {
+            let circleRenderer = MKCircleRenderer(overlay: circleOverlay)
+            circleRenderer.fillColor = UIColor.red.withAlphaComponent(0.3)
+            circleRenderer.strokeColor = UIColor.red
+            circleRenderer.lineWidth = 1.0
+            return circleRenderer
+        }
+        return MKOverlayRenderer(overlay: overlay)
     }
 }
 
