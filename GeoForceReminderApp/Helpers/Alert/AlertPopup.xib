@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Bold.ttf">
+            <string>Poppins-Bold</string>
+        </array>
+        <array key="Poppins-Regular.ttf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="AlertPopup" customModule="VCCustomerApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ppn-rZ-FKr">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WS2-pv-lGO">
+                    <rect key="frame" x="32" y="380" width="350" height="150"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="C8O-x1-6fn">
+                            <rect key="frame" x="10" y="22" width="330" height="99"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tZV-P6-eBj">
+                                    <rect key="frame" x="165" y="0.0" width="0.0" height="0.0"/>
+                                    <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="18"/>
+                                    <color key="textColor" name="textColor2"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="messagemessagemessagemessage" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kGG-Gv-fbS">
+                                    <rect key="frame" x="36" y="20" width="258.5" height="19"/>
+                                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
+                                    <color key="textColor" name="textColor2"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dWD-JD-ACA">
+                                    <rect key="frame" x="64" y="59" width="202" height="40"/>
+                                    <subviews>
+                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tuh-bA-lGR">
+                                            <rect key="frame" x="0.0" y="0.0" width="202" height="40"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
+                                            <state key="normal" title="OK">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="okayButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="beU-hs-X1S"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" name="CurrencyTextColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="0Ag-4R-ggC"/>
+                                        <constraint firstAttribute="bottom" secondItem="tuh-bA-lGR" secondAttribute="bottom" id="H6D-sx-xtB"/>
+                                        <constraint firstAttribute="trailing" secondItem="tuh-bA-lGR" secondAttribute="trailing" id="LEH-NZ-lme"/>
+                                        <constraint firstItem="tuh-bA-lGR" firstAttribute="top" secondItem="dWD-JD-ACA" secondAttribute="top" id="ufJ-8D-lkk"/>
+                                        <constraint firstItem="tuh-bA-lGR" firstAttribute="leading" secondItem="dWD-JD-ACA" secondAttribute="leading" id="xPg-mH-Vno"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                            <color key="value" name="GradientStart"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                            <color key="value" name="Gradientend"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="dWD-JD-ACA" firstAttribute="leading" secondItem="C8O-x1-6fn" secondAttribute="leading" constant="64" id="hYl-gw-QLC"/>
+                                <constraint firstAttribute="trailing" secondItem="dWD-JD-ACA" secondAttribute="trailing" constant="64" id="nW4-Sv-2aI"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="C8O-x1-6fn" firstAttribute="leading" secondItem="WS2-pv-lGO" secondAttribute="leading" constant="10" id="1ip-KR-pEh"/>
+                        <constraint firstAttribute="bottom" secondItem="C8O-x1-6fn" secondAttribute="bottom" constant="29" id="4tz-21-8Vz"/>
+                        <constraint firstItem="C8O-x1-6fn" firstAttribute="top" secondItem="WS2-pv-lGO" secondAttribute="top" constant="22" id="J60-u0-hm7"/>
+                        <constraint firstAttribute="trailing" secondItem="C8O-x1-6fn" secondAttribute="trailing" constant="10" id="ejt-WG-V3N"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="WS2-pv-lGO" secondAttribute="trailing" constant="32" id="24N-oM-Oal"/>
+                <constraint firstItem="WS2-pv-lGO" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="7" id="MJb-Rx-aWc"/>
+                <constraint firstAttribute="bottom" secondItem="Ppn-rZ-FKr" secondAttribute="bottom" id="McC-xa-VCt"/>
+                <constraint firstItem="WS2-pv-lGO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="32" id="WHk-iO-gVJ"/>
+                <constraint firstItem="Ppn-rZ-FKr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="aqX-VU-Kst"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Ppn-rZ-FKr" secondAttribute="trailing" id="cFz-oM-73C"/>
+                <constraint firstItem="Ppn-rZ-FKr" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="mvN-fc-I1g"/>
+                <constraint firstItem="WS2-pv-lGO" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="re1-su-P0n"/>
+            </constraints>
+            <connections>
+                <outlet property="dialogueBoxView" destination="WS2-pv-lGO" id="rBc-yR-GWh"/>
+                <outlet property="messageLabel" destination="kGG-Gv-fbS" id="mOl-RY-V6J"/>
+                <outlet property="okayButton" destination="tuh-bA-lGR" id="3U1-hV-J0q"/>
+                <outlet property="overlayView" destination="Ppn-rZ-FKr" id="S4T-1D-Byj"/>
+                <outlet property="titleLabel" destination="tZV-P6-eBj" id="aHQ-21-4cS"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="135.9375"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="CurrencyTextColor">
+            <color red="0.14117647058823529" green="0.56470588235294117" blue="0.56470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="GradientStart">
+            <color red="0.65100002288818359" green="0.92199999094009399" blue="0.11400000005960464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Gradientend">
+            <color red="0.44699999690055847" green="0.62400001287460327" blue="0.097999997437000275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textColor2">
+            <color red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
