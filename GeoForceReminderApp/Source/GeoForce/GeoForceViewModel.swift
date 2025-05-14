@@ -66,15 +66,6 @@ class GeoForceViewModel: ObservableObject {
         let center = annotation.coordinate
         let identifier = UUID().uuidString
 
-        // Check if the region is already being monitored
-        for monitoredRegion in locationManager.monitoredRegions {
-            if let circularRegion = monitoredRegion as? CLCircularRegion,
-               circularRegion.identifier == identifier {
-                locationManager.stopMonitoring(for: circularRegion)
-                print("Stopped monitoring existing region: \(circularRegion.identifier)")
-            }
-        }
-
         let region = CLCircularRegion(center: center, radius: radius, identifier: identifier)
         region.notifyOnEntry = true
         region.notifyOnExit = true

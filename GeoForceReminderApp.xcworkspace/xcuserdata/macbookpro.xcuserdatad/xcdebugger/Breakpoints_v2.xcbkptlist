@@ -206,6 +206,36 @@
             endingLineNumber = "69"
             landmarkName = "setupGeofenceMonitoring(for:radius:locationManager:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F09F518C-EB72-4D3E-937C-B9344DDCAF0E - 8cd1dd2d2844e2c9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GeoForceReminderApp.GeoForceViewModel.setupGeofenceMonitoring(for: __C.MKAnnotation, radius: Swift.Double, locationManager: __C.CLLocationManager) -&gt; ()"
+                  moduleName = "GeoForceReminderApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macbookpro/Desktop/GeoForceReminderApp/GeoForceReminderApp/Source/GeoForce/GeoForceViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "70"
+                  endingLineNumber = "70">
+               </Location>
+               <Location
+                  uuid = "F09F518C-EB72-4D3E-937C-B9344DDCAF0E - 8cd1dd2d2844e2aa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GeoForceReminderApp.GeoForceViewModel.setupGeofenceMonitoring(for: __C.MKAnnotation, radius: Swift.Double, locationManager: __C.CLLocationManager) -&gt; ()"
+                  moduleName = "GeoForceReminderApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macbookpro/Desktop/GeoForceReminderApp/GeoForceReminderApp/Source/GeoForce/GeoForceViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "69"
+                  endingLineNumber = "69">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
