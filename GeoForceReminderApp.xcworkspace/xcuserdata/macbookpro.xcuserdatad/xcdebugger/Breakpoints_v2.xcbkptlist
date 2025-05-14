@@ -48,36 +48,6 @@
             endingLineNumber = "155"
             landmarkName = "mapView(_:didSelect:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "4AF8F33F-3522-43B7-ACA0-EE2D557C2CBB - 761a6c4b9de7f80b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GeoForceReminderApp.GeoForceViewController.mapView(_: __C.MKMapView, didSelect: __C.MKAnnotationView) -&gt; ()"
-                  moduleName = "GeoForceReminderApp.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbookpro/Desktop/GeoForceReminderApp/GeoForceReminderApp/Source/GeoForceViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "157"
-                  endingLineNumber = "157">
-               </Location>
-               <Location
-                  uuid = "4AF8F33F-3522-43B7-ACA0-EE2D557C2CBB - 761a6c4b9de7f84d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GeoForceReminderApp.GeoForceViewController.mapView(_: __C.MKMapView, didSelect: __C.MKAnnotationView) -&gt; ()"
-                  moduleName = "GeoForceReminderApp.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbookpro/Desktop/GeoForceReminderApp/GeoForceReminderApp/Source/GeoForceViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "155"
-                  endingLineNumber = "155">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -108,36 +78,6 @@
             endingLineNumber = "175"
             landmarkName = "mapView(_:rendererFor:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "BEBE040F-AA70-4389-922F-212A79CBFC54 - 761a6c4b9de7fab7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GeoForceReminderApp.GeoForceViewController.mapView(_: __C.MKMapView, didSelect: __C.MKAnnotationView) -&gt; ()"
-                  moduleName = "GeoForceReminderApp.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbookpro/Desktop/GeoForceReminderApp/GeoForceReminderApp/Source/GeoForceViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "177"
-                  endingLineNumber = "177">
-               </Location>
-               <Location
-                  uuid = "BEBE040F-AA70-4389-922F-212A79CBFC54 - 761a6c4b9de7faf9"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GeoForceReminderApp.GeoForceViewController.mapView(_: __C.MKMapView, didSelect: __C.MKAnnotationView) -&gt; ()"
-                  moduleName = "GeoForceReminderApp.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbookpro/Desktop/GeoForceReminderApp/GeoForceReminderApp/Source/GeoForceViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "175"
-                  endingLineNumber = "175">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -202,36 +142,6 @@
             endingLineNumber = "189"
             landmarkName = "locationManager(_:monitoringDidFailFor:withError:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "E14398E4-6C1A-4313-A360-DA0B313600E3 - 9b20d1986337db2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GeoForceReminderApp.GeoForceViewController.mapView(_: __C.MKMapView, rendererFor: __C.MKOverlay) -&gt; __C.MKOverlayRenderer"
-                  moduleName = "GeoForceReminderApp.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbookpro/Desktop/GeoForceReminderApp/GeoForceReminderApp/Source/GeoForceViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "191"
-                  endingLineNumber = "191">
-               </Location>
-               <Location
-                  uuid = "E14398E4-6C1A-4313-A360-DA0B313600E3 - 9b20d1986337d70"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GeoForceReminderApp.GeoForceViewController.mapView(_: __C.MKMapView, rendererFor: __C.MKOverlay) -&gt; __C.MKOverlayRenderer"
-                  moduleName = "GeoForceReminderApp.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbookpro/Desktop/GeoForceReminderApp/GeoForceReminderApp/Source/GeoForceViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "189"
-                  endingLineNumber = "189">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

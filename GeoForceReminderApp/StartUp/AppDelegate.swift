@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var redirect : RedirectHelper!
     var logoutTimer: Timer?
-    let vc = BaseViewController()
+//    let vc = BaseViewController()
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
