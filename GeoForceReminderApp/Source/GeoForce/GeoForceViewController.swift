@@ -11,6 +11,7 @@ import MapKit
 import CoreLocation
 import Combine
 import CoreData
+import UserNotifications
 
 class GeoForceViewController: UIViewController {
 
@@ -159,27 +160,25 @@ class GeoForceViewController: UIViewController {
             mapView.addAnnotation(annotation)
         }
     }
+
+    private func triggerLocalNotification(title: String, body: String) {
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = .default
+
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Failed to schedule notification: \(error.localizedDescription)")
+            }
+        }
+    }
 }
 
 // MARK: - MKMapViewDelegate
 extension GeoForceViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let identifier = "CustomAnnotation"
-
-        if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
-            annotationView.annotation = annotation
-            return annotationView
-        } else {
-            let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView.canShowCallout = true
-            annotationView.tintColor = UIColor.blue
-            return annotationView
-        }
-    }
-
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        guard let annotation = view.annotation else { return }
-
+    private func presentGeofenceAlert(for annotation: MKAnnotation) {
         let alertController = UIAlertController(title: "Set Geofence", message: "Select a radius for the geofence (in meters):", preferredStyle: .alert)
 
         alertController.addTextField { textField in
@@ -192,17 +191,7 @@ extension GeoForceViewController: MKMapViewDelegate {
         }
 
         let setAction = UIAlertAction(title: "Set", style: .default) { [weak self] _ in
-            guard let radiusText = alertController.textFields?[0].text,
-                  let radius = Double(radiusText),
-                  radius >= 100, radius <= 1000,
-                  let note = alertController.textFields?[1].text else {
-                self?.showError("Invalid input. Please enter valid values.")
-                return
-            }
-
-            self?.viewModel.setGeofence(for: annotation, radius: radius, locationManager: self!.locationManager, mapView: self!.mapView)
-            let annotationTitle =  annotation.title ?? ""
-            self?.saveGeofenceReminder(name: annotationTitle ?? "", latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude, radius: radius, note: note)
+            self?.handleGeofenceAlertInput(for: annotation, alertController: alertController)
         }
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -211,6 +200,39 @@ extension GeoForceViewController: MKMapViewDelegate {
         alertController.addAction(cancelAction)
 
         present(alertController, animated: true, completion: nil)
+    }
+
+    private func handleGeofenceAlertInput(for annotation: MKAnnotation, alertController: UIAlertController) {
+        guard let radiusText = alertController.textFields?[0].text,
+              let radius = Double(radiusText),
+              radius >= 100, radius <= 1000,
+              let note = alertController.textFields?[1].text else {
+            showError("Invalid input. Please enter valid values.")
+            return
+        }
+
+        viewModel.setGeofence(for: annotation, radius: radius, locationManager: locationManager, mapView: mapView)
+        let annotationTitle = annotation.title ?? ""
+        saveGeofenceReminder(name: annotationTitle ?? "", latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude, radius: radius, note: note)
+    }
+
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let annotation = view.annotation else { return }
+        presentGeofenceAlert(for: annotation)
+    }
+
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let identifier = "CustomAnnotation"
+
+        if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
+            annotationView.annotation = annotation
+            return annotationView
+        } else {
+            let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView.canShowCallout = true
+            annotationView.tintColor = UIColor.blue
+            return annotationView
+        }
     }
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -229,10 +251,12 @@ extension GeoForceViewController: MKMapViewDelegate {
 extension GeoForceViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         print("User entered the area!")
+        triggerLocalNotification(title: "Geofence Alert", body: "You have entered the geofence region: \(region.identifier)")
     }
 
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         print("User exited the area!")
+        triggerLocalNotification(title: "Geofence Alert", body: "You have exited the geofence region: \(region.identifier)")
     }
 
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {

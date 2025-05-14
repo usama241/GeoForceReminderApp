@@ -18,7 +18,7 @@ class GeoForceViewModel: ObservableObject {
 
     // MARK: - Methods
     func fetchLocations() {
-        guard let url = URL(string: "https://gist.githubusercontent.com/usama241/41e0cdcac7055e83cd9665c3ad4af89f/raw/6a2880d16b5ba59a595963bda6abdcffa9c19dd9/locations.json") else {
+        guard let url = URL(string: "https://gist.githubusercontent.com/usama241/41e0cdcac7055e83cd9665c3ad4af89f/raw/6a2880d16b5ba59a595963bda6abdcffa9c19dd9/locations.json") else { 
             errorMessage = "Invalid URL"
             return
         }
@@ -53,18 +53,29 @@ class GeoForceViewModel: ObservableObject {
                 }
             }
         }
-
         task.resume()
     }
 
     func setupGeofenceMonitoring(for annotation: MKAnnotation, radius: Double, locationManager: CLLocationManager) {
+        print("setupGeofenceMonitoring called for annotation: \(annotation.title ?? "Unknown")")
         guard CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) else {
             errorMessage = "Geofencing is not supported on this device!"
             return
         }
 
         let center = annotation.coordinate
-        let region = CLCircularRegion(center: center, radius: radius, identifier: UUID().uuidString)
+        let identifier = UUID().uuidString
+
+        // Check if the region is already being monitored
+        for monitoredRegion in locationManager.monitoredRegions {
+            if let circularRegion = monitoredRegion as? CLCircularRegion,
+               circularRegion.identifier == identifier {
+                locationManager.stopMonitoring(for: circularRegion)
+                print("Stopped monitoring existing region: \(circularRegion.identifier)")
+            }
+        }
+
+        let region = CLCircularRegion(center: center, radius: radius, identifier: identifier)
         region.notifyOnEntry = true
         region.notifyOnExit = true
 
@@ -75,12 +86,15 @@ class GeoForceViewModel: ObservableObject {
     func drawGeofenceCircle(center: CLLocationCoordinate2D, radius: Double, mapView: MKMapView) {
         DispatchQueue.main.async {
             mapView.removeOverlays(mapView.overlays)
-            let circle = MKCircle(center: center, radius: radius)
+            // Adjust the radius to make the circle appear larger * 10 just to make circle look bigger.
+            let adjustedRadius = radius * 10
+            let circle = MKCircle(center: center, radius: adjustedRadius)
             mapView.addOverlay(circle)
         }
     }
 
     func setGeofence(for annotation: MKAnnotation, radius: Double, locationManager: CLLocationManager, mapView: MKMapView) {
+        print("setGeofence called for annotation: \(annotation.title ?? "Unknown")")
         setupGeofenceMonitoring(for: annotation, radius: radius, locationManager: locationManager)
         drawGeofenceCircle(center: annotation.coordinate, radius: radius, mapView: mapView)
         print("Geofence set for annotation at \(annotation.coordinate) with radius \(radius) meters.")

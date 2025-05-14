@@ -6,11 +6,8 @@
 //
 
 import UIKit
-import IQKeyboardManagerSwift
-import SDWebImage
 import CoreData
-import SDWebImageSVGCoder
-import FittedSheets
+import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,15 +15,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var redirect : RedirectHelper!
     var logoutTimer: Timer?
-//    let vc = BaseViewController()
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-//        IQKeyboardManager.shared.enable = true
-        let SVGCoder = SDImageSVGCoder.shared
-        SDImageCodersManager.shared.addCoder(SVGCoder)
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if let error = error {
+                print("Notification permission error: \(error.localizedDescription)")
+            } else if granted {
+                print("Notification permission granted.")
+            } else {
+                print("Notification permission denied.")
+            }
+        }
         let frame = UIScreen.main.bounds
         self.window = UIWindow(frame: frame)
         redirect = RedirectHelper(window: window)
