@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import Combine
+import CoreData
 
 class GeoForceViewController: UIViewController {
 
@@ -28,7 +29,7 @@ class GeoForceViewController: UIViewController {
         viewModel.fetchLocations()
         addZoomControls()
         addMenuButton()
-        
+        loadGeofenceReminders()
     }
 
     // MARK: - Setup Methods
@@ -141,9 +142,21 @@ class GeoForceViewController: UIViewController {
     @objc private func openLocationsList() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let locationsListVC = storyboard.instantiateViewController(withIdentifier: "LocationsListViewController") as? LocationsListViewController {
-            let locationsListViewModel = LocationsListViewModel(locations: viewModel.locations)
-            locationsListVC.configure(with: locationsListViewModel)
             navigationController?.pushViewController(locationsListVC, animated: true)
+        }
+    }
+
+    private func saveGeofenceReminder(name: String, latitude: Double, longitude: Double, radius: Double, note: String?) {
+        CoreDataHelper.shared.saveGeofence(name: name, latitude: latitude, longitude: longitude, radius: radius, note: note)
+    }
+
+    private func loadGeofenceReminders() {
+        let geofences = CoreDataHelper.shared.fetchGeofences()
+        for geofence in geofences {
+            let annotation = MKPointAnnotation()
+            annotation.title = geofence.name
+            annotation.coordinate = CLLocationCoordinate2D(latitude: geofence.latitude, longitude: geofence.longitude)
+            mapView.addAnnotation(annotation)
         }
     }
 }
@@ -174,15 +187,22 @@ extension GeoForceViewController: MKMapViewDelegate {
             textField.keyboardType = .numberPad
         }
 
+        alertController.addTextField { textField in
+            textField.placeholder = "Enter a note (optional)"
+        }
+
         let setAction = UIAlertAction(title: "Set", style: .default) { [weak self] _ in
-            guard let radiusText = alertController.textFields?.first?.text,
+            guard let radiusText = alertController.textFields?[0].text,
                   let radius = Double(radiusText),
-                  radius >= 100, radius <= 1000 else {
-                self?.showError("Invalid radius. Please enter a value between 100 and 1000.")
+                  radius >= 100, radius <= 1000,
+                  let note = alertController.textFields?[1].text else {
+                self?.showError("Invalid input. Please enter valid values.")
                 return
             }
 
             self?.viewModel.setGeofence(for: annotation, radius: radius, locationManager: self!.locationManager, mapView: self!.mapView)
+            let annotationTitle =  annotation.title ?? ""
+            self?.saveGeofenceReminder(name: annotationTitle ?? "", latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude, radius: radius, note: note)
         }
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

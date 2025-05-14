@@ -6,14 +6,24 @@
 //
 
 import Foundation
+import CoreData
 
 class LocationsListViewModel {
 
     // MARK: - Properties
-    let locations: [LocationsArray]
+    private(set) var geofences: [GeofenceReminder] = []
 
     // MARK: - Initializer
-    init(locations: [LocationsArray]) {
-        self.locations = locations
+    init() {
+        
+    }
+
+    // MARK: - Methods
+    func loadGeofences() {
+        geofences = CoreDataHelper.shared.fetchGeofences()
+    }
+
+    func isGeofenceListEmpty() -> Bool {
+        return geofences.isEmpty
     }
 }

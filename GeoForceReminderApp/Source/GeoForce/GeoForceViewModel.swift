@@ -18,7 +18,7 @@ class GeoForceViewModel: ObservableObject {
 
     // MARK: - Methods
     func fetchLocations() {
-        guard let url = URL(string: "https://gist.githubusercontent.com/usama241/41e0cdcac7055e83cd9665c3ad4af89f/raw/0131631c669dd492faaceb01dc3d417fd1034301/locations.json") else {
+        guard let url = URL(string: "https://gist.githubusercontent.com/usama241/41e0cdcac7055e83cd9665c3ad4af89f/raw/6a2880d16b5ba59a595963bda6abdcffa9c19dd9/locations.json") else {
             errorMessage = "Invalid URL"
             return
         }
