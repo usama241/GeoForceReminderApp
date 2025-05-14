@@ -9,54 +9,66 @@ import Foundation
 import UIKit
 import MapKit
 import CoreLocation
+import Combine
 
 class GeoForceViewController: UIViewController {
 
     // MARK: - Properties
-    var viewModel: GeoForceViewModel?
+    var viewModel = GeoForceViewModel()
     private var locationManager: CLLocationManager = CLLocationManager()
+    private var cancellables: Set<AnyCancellable> = []
 
     // MARK: - Outlets
     @IBOutlet weak var mapView: MKMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = GeoForceViewModel()
+        setupBindings()
         setupMapView()
-        fetchAndDisplayLocations()
+        viewModel.fetchLocations()
         addZoomControls()
     }
-    
-    // MARK: - Map Setup
+
+    // MARK: - Setup Methods
+    private func setupBindings() {
+        viewModel.$locations
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] locations in
+                self?.updateAnnotations(with: locations)
+            }
+            .store(in: &cancellables)
+
+        viewModel.$errorMessage
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] errorMessage in
+                if let message = errorMessage {
+                    self?.showError(message)
+                }
+            }
+            .store(in: &cancellables)
+    }
+
     private func setupMapView() {
         locationManager.delegate = self
         mapView.delegate = self
-        locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
     }
 
-    private func fetchAndDisplayLocations() {
-        viewModel?.getLocations { [weak self] msg, success in
-            guard let self = self, success else {
-                print(msg ?? "Failed to fetch locations")
-                return
-            }
-
-            self.addAnnotationsToMap()
-        }
-    }
-
-    private func addAnnotationsToMap() {
-        guard let locations = viewModel?.locations else { return }
-
+    private func updateAnnotations(with locations: [LocationsArray]) {
+        mapView.removeAnnotations(mapView.annotations)
         let annotations = locations.map { location -> MKPointAnnotation in
             let annotation = MKPointAnnotation()
             annotation.title = location.name
             annotation.coordinate = CLLocationCoordinate2D(latitude: location.lat ?? 0.0, longitude: location.lon ?? 0.0)
             return annotation
         }
-
         mapView.addAnnotations(annotations)
+    }
+
+    private func showError(_ message: String) {
+        let errorAlert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(errorAlert, animated: true, completion: nil)
     }
 
     // MARK: - Zoom Controls
@@ -104,23 +116,6 @@ class GeoForceViewController: UIViewController {
         let newRegion = MKCoordinateRegion(center: region.center, span: span)
         mapView.setRegion(newRegion, animated: true)
     }
-
-    private func checkLocationAuthorization() {
-
-        switch locationManager.authorizationStatus {
-        case .notDetermined:
-            locationManager.requestAlwaysAuthorization()
-        case .restricted, .denied:
-            print("Location access is restricted or denied. Please enable it in settings.")
-        case .authorizedWhenInUse:
-            print("Location access is authorized when in use. Consider requesting 'Always' authorization for geofencing.")
-            locationManager.requestAlwaysAuthorization()
-        case .authorizedAlways:
-            print("Location access is authorized always.")
-        @unknown default:
-            print("Unknown location authorization status.")
-        }
-    }
 }
 
 // MARK: - MKMapViewDelegate
@@ -157,7 +152,7 @@ extension GeoForceViewController: MKMapViewDelegate {
                 return
             }
 
-            self?.setGeofence(for: annotation, radius: radius)
+            self?.viewModel.setGeofence(for: annotation, radius: radius, locationManager: self!.locationManager, mapView: self!.mapView)
         }
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -168,28 +163,6 @@ extension GeoForceViewController: MKMapViewDelegate {
         present(alertController, animated: true, completion: nil)
     }
 
-    private func setGeofence(for annotation: MKAnnotation, radius: Double) {
-        setupGeofenceMonitoring(for: annotation, radius: radius)
-        drawGeofenceCircle(center: annotation.coordinate, radius: radius)
-        print("Geofence set for annotation at \(annotation.coordinate) with radius \(radius) meters.")
-    }
-
-    private func showError(_ message: String) {
-        let errorAlert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(errorAlert, animated: true, completion: nil)
-    }
-
-    private func drawGeofenceCircle(center: CLLocationCoordinate2D, radius: Double) {
-        // Remove existing overlays
-        mapView.removeOverlays(mapView.overlays)
-
-        // Create a new circle overlay
-        let circle = MKCircle(center: center, radius: radius)
-        mapView.addOverlay(circle)
-    }
-
-    // MARK: - MKMapViewDelegate Method for Rendering Overlays
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let circleOverlay = overlay as? MKCircle {
             let circleRenderer = MKCircleRenderer(overlay: circleOverlay)
@@ -210,24 +183,6 @@ extension GeoForceViewController: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         print("User exited the area!")
-    }
-
-    private func setupGeofenceMonitoring(for annotation: MKAnnotation, radius: Double) {
-        guard CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) else {
-            print("Geofencing is not supported on this device!")
-            return
-        }
-
-        let center = annotation.coordinate
-        let region = CLCircularRegion(center: center, radius: radius, identifier: UUID().uuidString)
-        region.notifyOnEntry = true
-        region.notifyOnExit = true
-
-        locationManager.startMonitoring(for: region)
-        print("Started monitoring region: \(region.identifier) at \(center) with radius \(radius) meters.")
-
-        let monitoredRegions = locationManager.monitoredRegions.map { $0.identifier }
-        print("Currently monitored regions: \(monitoredRegions)")
     }
 
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {

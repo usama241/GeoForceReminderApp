@@ -283,42 +283,6 @@ import Loaf
              return mappedNumbers.joined(separator: ", ")
          }
      }
-     
-     class func timeString(time: TimeInterval) -> String {
-         let hours = Int(time) / 3600
-         let minutes = Int(time) / 60 % 60
-         let seconds = Int(time) % 60
-         return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
-     }
-     
-     class func timeMinString(time: TimeInterval) -> String {
-         let minutes = Int(time) / 60 % 60
-         let seconds = Int(time) % 60
-         return String(format:"%02i:%02i", minutes, seconds)
-     }
-     
-     class func convertTo24HourFormat(_ timeString: String) -> String? {
-         let dateFormatter = DateFormatter()
-         dateFormatter.dateFormat = "h:mm a" // Input format: hours:minutes AM/PM
-         
-         if let date = dateFormatter.date(from: timeString) {
-             dateFormatter.dateFormat = "HH:mm:ss" // Output format: hours:minutes:seconds
-             return dateFormatter.string(from: date)
-         }
-         
-         return nil
-     }
-     class func convertToAMPMHourFormat(_ timeString: String) -> String? {
-         let dateFormatter = DateFormatter()
-         dateFormatter.dateFormat = "HH:mm:ss" // Input format: hours:minutes AM/PM
-         
-         if let date = dateFormatter.date(from: timeString) {
-             dateFormatter.dateFormat = "h:mm a" // Output format: hours:minutes:seconds
-             return dateFormatter.string(from: date)
-         }
-         
-         return nil
-     }
  }
 
 
