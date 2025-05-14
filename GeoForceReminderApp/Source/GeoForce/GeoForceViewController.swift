@@ -27,6 +27,8 @@ class GeoForceViewController: UIViewController {
         setupMapView()
         viewModel.fetchLocations()
         addZoomControls()
+        addMenuButton()
+        
     }
 
     // MARK: - Setup Methods
@@ -115,6 +117,34 @@ class GeoForceViewController: UIViewController {
         let span = MKCoordinateSpan(latitudeDelta: region.span.latitudeDelta * 2, longitudeDelta: region.span.longitudeDelta * 2)
         let newRegion = MKCoordinateRegion(center: region.center, span: span)
         mapView.setRegion(newRegion, animated: true)
+    }
+
+    private func addMenuButton() {
+        let menuButton = UIButton(type: .system)
+        menuButton.setTitle("Menu", for: .normal)
+        menuButton.backgroundColor = .systemBlue
+        menuButton.setTitleColor(.white, for: .normal)
+        menuButton.layer.cornerRadius = 5
+        menuButton.translatesAutoresizingMaskIntoConstraints = false
+        menuButton.addTarget(self, action: #selector(openLocationsList), for: .touchUpInside)
+
+        view.addSubview(menuButton)
+
+        NSLayoutConstraint.activate([
+            menuButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            menuButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            menuButton.widthAnchor.constraint(equalToConstant: 80),
+            menuButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+
+    @objc private func openLocationsList() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let locationsListVC = storyboard.instantiateViewController(withIdentifier: "LocationsListViewController") as? LocationsListViewController {
+            let locationsListViewModel = LocationsListViewModel(locations: viewModel.locations)
+            locationsListVC.configure(with: locationsListViewModel)
+            navigationController?.pushViewController(locationsListVC, animated: true)
+        }
     }
 }
 
